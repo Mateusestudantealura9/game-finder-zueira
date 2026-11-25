@@ -7,9 +7,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Camada de personagens e ícones gamer flutuando no fundo -->
+    <div class="floating-characters" id="floating-characters" aria-hidden="true"></div>
+
     <header>
-        <h1>🎮 GameFinder</h1>
-        <p>Encontre o jogo ideal com base nas suas preferências</p>
+        <div class="header-content">
+            <h1>🎮 GameFinder</h1>
+            <p>Encontre o jogo ideal com base nas suas preferências e confira preços reais</p>
+        </div>
     </header>
 
     <main class="container">
@@ -18,7 +23,7 @@
 
             <div class="filter-group">
                 <label for="search-input">Nome do Jogo</label>
-                <input type="text" id="search-input" placeholder="Ex: Witcher, Hollow...">
+                <input type="text" id="search-input" placeholder="Ex: Witcher, Hollow, God...">
             </div>
 
             <div class="filter-group">
@@ -60,7 +65,8 @@
                 <select id="price-select">
                     <option value="all">Qualquer Preço</option>
                     <option value="free">Gratuito (Free-to-Play)</option>
-                    <option value="paid">Pago</option>
+                    <option value="under100">Até R$ 100,00</option>
+                    <option value="paid">Todos os Pagos</option>
                 </select>
             </div>
 
@@ -70,10 +76,28 @@
         <section class="results-section">
             <div class="results-header">
                 <span id="results-count">Mostrando 0 jogos</span>
+                <span class="price-note">* Preços baseados nos valores oficiais digitais (PC/Consoles)</span>
             </div>
             <div id="games-grid" class="games-grid"></div>
         </section>
     </main>
+
+    <!-- Modal para visualizar a imagem e detalhes do jogo escolhido -->
+    <div id="game-modal" class="modal hidden" role="dialog" aria-modal="true">
+        <div class="modal-content">
+            <button id="close-modal" class="close-modal" aria-label="Fechar">&times;</button>
+            <img id="modal-img" src="" alt="Capa do jogo">
+            <div class="modal-body">
+                <h2 id="modal-title"></h2>
+                <p id="modal-desc"></p>
+                <div id="modal-tags" class="tags"></div>
+                <div class="modal-footer">
+                    <span id="modal-store"></span>
+                    <span id="modal-price" class="modal-price"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
