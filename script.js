@@ -327,6 +327,7 @@ platformSelect.addEventListener("change", filterGames);
 modeSelect.addEventListener("change", filterGames);
 priceSelect.addEventListener("change", filterGames);
 resetBtn.addEventListener("click", resetFilters);
+image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/292030/header.jpg"
 
 initFloatingCharacters();
 renderGames(gamesDatabase);
