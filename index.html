@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameFinder - Buscador de Jogos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🎮 GameFinder</h1>
+        <p>Encontre o jogo ideal com base nas suas preferências</p>
+    </header>
+
+    <main class="container">
+        <aside class="filters">
+            <h2>Características</h2>
+
+            <div class="filter-group">
+                <label for="search-input">Nome do Jogo</label>
+                <input type="text" id="search-input" placeholder="Ex: Witcher, Hollow...">
+            </div>
+
+            <div class="filter-group">
+                <label for="genre-select">Gênero</label>
+                <select id="genre-select">
+                    <option value="all">Todos os Gêneros</option>
+                    <option value="RPG">RPG</option>
+                    <option value="Ação">Ação</option>
+                    <option value="Aventura">Aventura</option>
+                    <option value="Estratégia">Estratégia</option>
+                    <option value="Indie">Indie</option>
+                    <option value="FPS">FPS</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="platform-select">Plataforma</label>
+                <select id="platform-select">
+                    <option value="all">Todas as Plataformas</option>
+                    <option value="PC">PC</option>
+                    <option value="PlayStation">PlayStation</option>
+                    <option value="Xbox">Xbox</option>
+                    <option value="Nintendo Switch">Nintendo Switch</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="mode-select">Modo de Jogo</label>
+                <select id="mode-select">
+                    <option value="all">Qualquer Modo</option>
+                    <option value="Singleplayer">Singleplayer</option>
+                    <option value="Multiplayer">Multiplayer</option>
+                    <option value="Cooperativo">Cooperativo</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="price-select">Preço</label>
+                <select id="price-select">
+                    <option value="all">Qualquer Preço</option>
+                    <option value="free">Gratuito (Free-to-Play)</option>
+                    <option value="paid">Pago</option>
+                </select>
+            </div>
+
+            <button id="reset-btn" type="button">Limpar Filtros</button>
+        </aside>
+
+        <section class="results-section">
+            <div class="results-header">
+                <span id="results-count">Mostrando 0 jogos</span>
+            </div>
+            <div id="games-grid" class="games-grid"></div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
