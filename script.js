@@ -9,7 +9,8 @@ const gamesDatabase = [
         priceValue: 159.99,
         priceText: "R$ 159,99",
         storeInfo: "Steam / PS Store",
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/292030/header.jpg",
+        image: "https://cdn.akamai.steamstatic.com/steam/apps/292030/header.jpg",
+        fallbackColor: "#7f1d1d",
         description: "Assuma o papel de Geralt de Rívia em um RPG de mundo aberto sombrio, rico em escolhas e caça a monstros."
     },
     {
@@ -22,7 +23,8 @@ const gamesDatabase = [
         priceValue: 46.99,
         priceText: "R$ 46,99",
         storeInfo: "Steam / eShop",
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/367520/header.jpg",
+        image: "https://cdn.akamai.steamstatic.com/steam/apps/367520/header.jpg",
+        fallbackColor: "#1e3a8a",
         description: "Explore Hallownest, um vasto reino subterrâneo em ruínas cheio de insetos guerreiros e chefes desafiadores."
     },
     {
@@ -35,7 +37,8 @@ const gamesDatabase = [
         priceValue: 249.90,
         priceText: "R$ 249,90",
         storeInfo: "Steam / PlayStation",
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg",
+        image: "https://cdn.akamai.steamstatic.com/steam/apps/2322010/header.jpg",
+        fallbackColor: "#0c4a6e",
         description: "Kratos e Atreus viajam pelos Nove Reinos em busca de respostas enquanto as forças asgardianas se preparam para a guerra."
     },
     {
@@ -48,7 +51,8 @@ const gamesDatabase = [
         priceValue: 199.00,
         priceText: "R$ 199,00",
         storeInfo: "Steam / EA App",
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1426210/header.jpg",
+        image: "https://cdn.akamai.steamstatic.com/steam/apps/1426210/header.jpg",
+        fallbackColor: "#78350f",
         description: "Uma aventura cooperativa premiada criada exclusivamente para dois jogadores superarem desafios criativos juntos."
     },
     {
@@ -61,7 +65,8 @@ const gamesDatabase = [
         priceValue: 129.00,
         priceText: "R$ 129,00",
         storeInfo: "Steam / Epic Games",
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/289070/header.jpg",
+        image: "https://cdn.akamai.steamstatic.com/steam/apps/289070/header.jpg",
+        fallbackColor: "#14532d",
         description: "Construa um império desde a Idade da Pedra até a Era da Informação e dispute a supremacia mundial em turnos."
     },
     {
@@ -74,7 +79,8 @@ const gamesDatabase = [
         priceValue: 0,
         priceText: "Gratuito",
         storeInfo: "Steam (Free-to-Play)",
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/730/header.jpg",
+        image: "https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg",
+        fallbackColor: "#9a3412",
         description: "O maior clássico de tiro tático competitivo em equipes 5v5 com física aprimorada e partidas ranqueadas."
     },
     {
@@ -87,7 +93,8 @@ const gamesDatabase = [
         priceValue: 0,
         priceText: "Gratuito",
         storeInfo: "Steam / EA / Consoles",
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1172470/header.jpg",
+        image: "https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg",
+        fallbackColor: "#991b1b",
         description: "Battle Royale dinâmico em esquadrões onde personagens lendários usam habilidades táticas e supremas."
     },
     {
@@ -100,7 +107,8 @@ const gamesDatabase = [
         priceValue: 299.90,
         priceText: "R$ 299,90",
         storeInfo: "Steam / Rockstar",
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg",
+        image: "https://cdn.akamai.steamstatic.com/steam/apps/1174180/header.jpg",
+        fallbackColor: "#881337",
         description: "Viva a história épica de Arthur Morgan e da gangue Van der Linde no fim da era do Velho Oeste americano."
     },
     {
@@ -113,73 +121,125 @@ const gamesDatabase = [
         priceValue: 24.99,
         priceText: "R$ 24,99",
         storeInfo: "Steam / Consoles",
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/413150/header.jpg",
+        image: "https://cdn.akamai.steamstatic.com/steam/apps/413150/header.jpg",
+        fallbackColor: "#166534",
         description: "Herde uma antiga fazenda, cultive plantações, explore cavernas e jogue sozinho ou com amigos."
     }
 ];
 
-// Silhuetas/figuras estilizadas de personagens voando no fundo
+// Gera uma capa ilustrada automática caso o usuário esteja sem internet
+function getFallbackCover(title, bgColor) {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="460" height="215" viewBox="0 0 460 215">
+        <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="${bgColor}"/>
+                <stop offset="100%" stop-color="#0f172a"/>
+            </linearGradient>
+        </defs>
+        <rect width="460" height="215" fill="url(#g)"/>
+        <circle cx="390" cy="40" r="70" fill="rgba(255,255,255,0.06)"/>
+        <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" fill="#f8fafc" font-family="Segoe UI, sans-serif" font-size="22" font-weight="bold">${title}</text>
+    </svg>`;
+    return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+}
+
+// Personagens dos jogos voando no fundo
 const backgroundCharacters = [
     {
-        name: "Cavaleiro",
-        left: "6%",
-        duration: "22s",
+        name: "Hollow Knight",
+        left: "5%",
+        duration: "21s",
         delay: "0s",
-        svg: `<svg viewBox="0 0 100 100" fill="none" stroke="#60a5fa" stroke-width="3">
-                <path d="M30 22 C26 10, 35 8, 38 22" />
-                <path d="M70 22 C74 10, 65 8, 62 22" />
-                <rect x="28" y="22" width="44" height="36" rx="16" fill="rgba(59,130,246,0.18)"/>
-                <circle cx="42" cy="40" r="5" fill="#93c5fd"/>
-                <circle cx="58" cy="40" r="5" fill="#93c5fd"/>
-                <path d="M32 58 L24 85 L76 85 L68 58 Z" fill="rgba(99,102,241,0.2)"/>
-                <line x1="82" y1="20" x2="82" y2="85" stroke="#a78bfa" stroke-width="4"/>
+        svg: `<svg viewBox="0 0 120 120" fill="none">
+                <!-- Capa esvoaçante -->
+                <path d="M35 64 C22 82, 24 102, 42 108 L78 108 C96 102, 98 82, 85 64 Z" fill="#1e293b" stroke="#60a5fa" stroke-width="2.5"/>
+                <!-- Chifres característicos -->
+                <path d="M42 42 C32 24, 34 10, 44 8 C46 18, 46 28, 50 36" fill="#f8fafc" stroke="#93c5fd" stroke-width="2"/>
+                <path d="M78 42 C88 24, 86 10, 76 8 C74 18, 74 28, 70 36" fill="#f8fafc" stroke="#93c5fd" stroke-width="2"/>
+                <!-- Máscara -->
+                <rect x="38" y="34" width="44" height="36" rx="18" fill="#f8fafc" stroke="#60a5fa" stroke-width="2.5"/>
+                <!-- Olhos vazios -->
+                <ellipse cx="50" cy="52" rx="5.5" ry="7.5" fill="#090d16"/>
+                <ellipse cx="70" cy="52" rx="5.5" ry="7.5" fill="#090d16"/>
+                <!-- Ferrão (Espada) -->
+                <polygon points="92,22 98,22 95,95" fill="#cbd5e1" stroke="#38bdf8" stroke-width="1.5"/>
+                <line x1="87" y1="34" x2="103" y2="34" stroke="#60a5fa" stroke-width="3"/>
               </svg>`
     },
     {
-        name: "Caçador",
-        left: "24%",
-        duration: "27s",
-        delay: "4s",
-        svg: `<svg viewBox="0 0 100 100" fill="none" stroke="#a78bfa" stroke-width="3">
-                <circle cx="50" cy="26" r="14" fill="rgba(167,139,250,0.2)"/>
-                <path d="M25 88 L35 44 L65 44 L75 88 Z" fill="rgba(59,130,246,0.18)"/>
-                <line x1="20" y1="15" x2="80" y2="75" stroke="#60a5fa" stroke-width="3.5"/>
-                <line x1="80" y1="15" x2="20" y2="75" stroke="#c084fc" stroke-width="3.5"/>
+        name: "Geralt de Rívia",
+        left: "22%",
+        duration: "26s",
+        delay: "3s",
+        svg: `<svg viewBox="0 0 120 120" fill="none">
+                <!-- Duas espadas nas costas -->
+                <line x1="25" y1="14" x2="92" y2="88" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+                <line x1="95" y1="14" x2="28" y2="88" stroke="#60a5fa" stroke-width="4" stroke-linecap="round"/>
+                <!-- Cabelo branco -->
+                <path d="M40 34 C36 20, 84 20, 80 34 L84 56 L36 56 Z" fill="#e2e8f0"/>
+                <!-- Rosto e cicatriz -->
+                <circle cx="60" cy="40" r="14" fill="#cbd5e1"/>
+                <circle cx="55" cy="39" r="2.2" fill="#facc15"/>
+                <circle cx="65" cy="39" r="2.2" fill="#facc15"/>
+                <line x1="63" y1="33" x2="68" y2="46" stroke="#ef4444" stroke-width="1.8"/>
+                <!-- Armadura -->
+                <path d="M34 58 L86 58 L92 106 L28 106 Z" fill="#1e293b" stroke="#60a5fa" stroke-width="2.5"/>
+                <!-- Medalhão de Lobo -->
+                <polygon points="60,66 55,74 60,80 65,74" fill="#38bdf8"/>
               </svg>`
     },
     {
-        name: "Guerreiro",
-        left: "48%",
-        duration: "25s",
-        delay: "8s",
-        svg: `<svg viewBox="0 0 100 100" fill="none" stroke="#38bdf8" stroke-width="3">
-                <circle cx="50" cy="24" r="13" fill="rgba(56,189,248,0.2)"/>
-                <path d="M28 42 L72 42 L66 86 L34 86 Z" fill="rgba(56,189,248,0.16)"/>
-                <path d="M76 18 C92 22, 92 42, 76 46 L76 84" stroke="#f472b6" stroke-width="4"/>
+        name: "Kratos",
+        left: "44%",
+        duration: "24s",
+        delay: "7s",
+        svg: `<svg viewBox="0 0 120 120" fill="none">
+                <!-- Machado Leviatã -->
+                <line x1="92" y1="16" x2="92" y2="104" stroke="#92400e" stroke-width="5" stroke-linecap="round"/>
+                <path d="M92 20 C112 20, 114 48, 92 48 Z" fill="#38bdf8" stroke="#bae6fd" stroke-width="2"/>
+                <!-- Cabeça e marca vermelha -->
+                <circle cx="56" cy="34" r="15" fill="#e2e8f0"/>
+                <path d="M48 21 L54 34 L46 42" stroke="#dc2626" stroke-width="4" stroke-linecap="round"/>
+                <!-- Barba -->
+                <path d="M43 38 C43 56, 69 56, 69 38 L64 54 L48 54 Z" fill="#334155"/>
+                <!-- Peitoral e ombreira -->
+                <path d="M30 56 L82 56 L78 106 L34 106 Z" fill="#475569" stroke="#94a3b8" stroke-width="2"/>
+                <path d="M30 56 L66 96" stroke="#b45309" stroke-width="7"/>
               </svg>`
     },
     {
         name: "Agente FPS",
-        left: "70%",
-        duration: "24s",
-        delay: "2s",
-        svg: `<svg viewBox="0 0 100 100" fill="none" stroke="#818cf8" stroke-width="3">
-                <circle cx="50" cy="25" r="13" fill="rgba(129,140,248,0.2)"/>
-                <rect x="38" y="21" width="24" height="7" rx="3" fill="#38bdf8"/>
-                <path d="M30 42 L70 42 L74 86 L26 86 Z" fill="rgba(99,102,241,0.18)"/>
-                <rect x="64" y="48" width="28" height="8" rx="2" fill="#93c5fd"/>
+        left: "66%",
+        duration: "22s",
+        delay: "1s",
+        svg: `<svg viewBox="0 0 120 120" fill="none">
+                <!-- Capuz tático -->
+                <path d="M38 38 C38 18, 82 18, 82 38 L85 56 L35 56 Z" fill="#312e81" stroke="#818cf8" stroke-width="2.5"/>
+                <!-- Visor brilhante -->
+                <rect x="44" y="34" width="32" height="10" rx="5" fill="#38bdf8"/>
+                <!-- Colete futurista -->
+                <path d="M32 58 L88 58 L94 106 L26 106 Z" fill="#1e1b4b" stroke="#6366f1" stroke-width="2.5"/>
+                <!-- Rifle energético -->
+                <rect x="64" y="64" width="44" height="10" rx="3" fill="#94a3b8"/>
+                <line x1="70" y1="69" x2="104" y2="69" stroke="#38bdf8" stroke-width="2.5"/>
               </svg>`
     },
     {
-        name: "Mago Arcano",
-        left: "86%",
-        duration: "29s",
-        delay: "6s",
-        svg: `<svg viewBox="0 0 100 100" fill="none" stroke="#c084fc" stroke-width="3">
-                <polygon points="50,6 30,34 70,34" fill="rgba(192,132,252,0.25)"/>
-                <circle cx="50" cy="44" r="10" fill="rgba(96,165,250,0.2)"/>
-                <path d="M28 88 L38 56 L62 56 L72 88 Z" fill="rgba(167,139,250,0.2)"/>
-                <circle cx="80" cy="36" r="7" stroke="#facc15" fill="rgba(250,204,21,0.3)"/>
+        name: "Aventureiro",
+        left: "84%",
+        duration: "28s",
+        delay: "5s",
+        svg: `<svg viewBox="0 0 120 120" fill="none">
+                <!-- Chapéu pontudo -->
+                <polygon points="60,8 34,36 86,36" fill="#2563eb" stroke="#93c5fd" stroke-width="2"/>
+                <ellipse cx="60" cy="36" rx="32" ry="6" fill="#1d4ed8"/>
+                <!-- Rosto -->
+                <circle cx="60" cy="48" r="12" fill="#fde68a"/>
+                <!-- Manto -->
+                <path d="M32 106 L42 62 L78 62 L88 106 Z" fill="#4f46e5" stroke="#a78bfa" stroke-width="2.5"/>
+                <!-- Cajado mágico voando -->
+                <line x1="96" y1="24" x2="96" y2="104" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="96" cy="20" r="8" fill="#facc15" stroke="#fef08a" stroke-width="2"/>
               </svg>`
     }
 ];
@@ -192,7 +252,10 @@ function initFloatingCharacters() {
         el.style.left = char.left;
         el.style.animationDuration = char.duration;
         el.style.animationDelay = char.delay;
-        el.innerHTML = `${char.svg}<span>${char.name}</span>`;
+        el.innerHTML = `
+            <div class="floating-char-art">${char.svg}</div>
+            <span>${char.name}</span>
+        `;
         container.appendChild(el);
     });
 }
@@ -217,6 +280,11 @@ const modalStore = document.getElementById("modal-store");
 const modalPrice = document.getElementById("modal-price");
 
 function openGameModal(game) {
+    const fallbackSrc = getFallbackCover(game.title, game.fallbackColor);
+    modalImg.onerror = () => {
+        modalImg.onerror = null;
+        modalImg.src = fallbackSrc;
+    };
     modalImg.src = game.image;
     modalImg.alt = `Capa de ${game.title}`;
     modalTitle.textContent = game.title;
@@ -256,10 +324,13 @@ function renderGames(games) {
             .map(platform => `<span class="tag">${platform}</span>`)
             .join("");
 
+        const fallbackSrc = getFallbackCover(game.title, game.fallbackColor);
+
         card.innerHTML = `
             <div class="game-image-wrapper">
-                <img src="${game.image}" alt="Imagem do jogo ${game.title}" loading="lazy">
+                <img src="${game.image}" alt="Capa do jogo ${game.title}">
                 <span class="game-genre-badge">${game.genre}</span>
+                <span class="view-photo-hint">🔍 Ampliar foto</span>
             </div>
             <div class="game-info">
                 <h3 class="game-title">${game.title}</h3>
@@ -277,6 +348,12 @@ function renderGames(games) {
                 </div>
             </div>
         `;
+
+        const imgEl = card.querySelector("img");
+        imgEl.onerror = () => {
+            imgEl.onerror = null;
+            imgEl.src = fallbackSrc;
+        };
 
         card.addEventListener("click", () => openGameModal(game));
         gamesGrid.appendChild(card);
@@ -327,7 +404,6 @@ platformSelect.addEventListener("change", filterGames);
 modeSelect.addEventListener("change", filterGames);
 priceSelect.addEventListener("change", filterGames);
 resetBtn.addEventListener("click", resetFilters);
-image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/292030/header.jpg"
 
 initFloatingCharacters();
 renderGames(gamesDatabase);
